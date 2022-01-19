@@ -61,8 +61,38 @@
             </div>
         </nav>
     </header>
+   
     <div class="container">
+        <div>
+            <table  class="table table-striped table-bordered dt-responsive nowrap">
+         <thead>
+            <tr>
+                <th>Room Tersedia yang sudah anda Join</th></tr>
+        </thead>
+        <tbody>
+        @if (User.Identity.IsAuthenticated)
+        {
+             @(await Component.InvokeAsync("Room"))  
+        }
+        </tbody>
+    </table>
+     <div>
+            <table  class="table table-striped table-bordered dt-responsive nowrap">
+         <thead>
+            <tr>
+                <th>Room Private Tersedia yang sudah anda Join</th></tr>
+        </thead>
+        <tbody>
+        @if (User.Identity.IsAuthenticated)
+        {
+             @(await Component.InvokeAsync("RoomPrivate"))  
+        }
+        </tbody>
+    </table>
+        </div>
         <main role="main" class="pb-3">
+             
+
             @RenderBody()
         </main>
     </div>

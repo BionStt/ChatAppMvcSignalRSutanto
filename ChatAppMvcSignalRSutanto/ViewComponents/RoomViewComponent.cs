@@ -20,16 +20,27 @@ namespace ChatAppMvcSignalRSutanto.ViewComponents
             _dbContext=dbContext;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
+            //var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            //var chats = _dbContext.ChatUsers
+            //    .Include(x => x.Chat)
+            //    .Where(x => x.UserId == userId
+            //    && x.Chat.Type == ChatType.Room)
+            //    .Select(x => x.Chat)
+            //    .ToList();
+
+
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var chats = _dbContext.ChatUsers
-                .Include(x => x.Chat)
-                .Where(x => x.UserId == userId
-                && x.Chat.Type == ChatType.Room)
-                .Select(x => x.Chat)
-                .ToList();
-            return View(chats);
+            var chats = await _dbContext.Chats
+          .Include(c => c.Users)
+         //  .Where(x => !x.Users.Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            .Where(c=>c.Users.Any(y=>y.UserId != userId ))
+          .ToListAsync();
+
+           // return View(chats);
+            return await Task.FromResult((IViewComponentResult)View("Room",chats));
+
 
         }
 

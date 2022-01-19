@@ -27,9 +27,11 @@ namespace ChatAppMvcSignalRSutanto.Controllers
 
         public async Task<IActionResult> Index()
         {
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var chats = await _dbContext.Chats
             .Include(c => c.Users)
-            //.Where(x => !x.Users.Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            // .Where(x => !x.Users.Any(y => y.UserId == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            .Where(c => c.Users.Any(y => y.UserId != userId))
             .ToListAsync();
             return View(chats);
         }
