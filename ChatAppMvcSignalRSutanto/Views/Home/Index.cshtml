@@ -1,0 +1,33 @@
+﻿@*@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+*@
+
+@model IEnumerable<Chat>
+
+
+    <table class="table table-striped table-bordered dt-responsive nowrap">
+        <thead>
+            <tr>
+                <th>Room Name</th></tr>
+        </thead>
+        <tbody>
+             @foreach (var chat in Model)
+                {
+                    <tr>
+                        <td>
+                      <a class="room-button" asp-controller="Home" asp-action="JoinRoom" asp-route-id="@chat.Id">
+                                            @chat.Name
+                                        </a>
+               </td>
+                                    </tr>
+                  
+                }
+        </tbody>
+    </table>
+   

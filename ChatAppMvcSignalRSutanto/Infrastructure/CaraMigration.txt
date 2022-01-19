@@ -1,0 +1,3 @@
+﻿EntityFrameworkCore\Add-Migration InitialCreate -Context AppDbContext -OutputDir Migrations
+
+EntityFrameworkCore\Update-Database -CONTEXT AppDbContext
